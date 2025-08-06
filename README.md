@@ -25,9 +25,6 @@ This is the **backend API** for a Todo application built using **Node.js**, **Ex
 
 ---
 
-## 📁 Project Structure
-
-
 ## 📌 Notes
 - The frontend should store the JWT in localStorage and send it with each protected request.
 
