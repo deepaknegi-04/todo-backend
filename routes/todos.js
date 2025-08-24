@@ -69,7 +69,7 @@ router.put("/update:id", authMiddleware, async (req, res) => {
     }
 })
 
-router.delete("/delete:id", authMiddleware, async (req, res) => {
+router.delete("/delete/:id", authMiddleware, async (req, res) => {
     const todoId = req.params.id;
 
     try {
