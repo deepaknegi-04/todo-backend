@@ -53,7 +53,7 @@ router.get("/getTodos", authMiddleware, async (req, res) => {
 })
 
 
-router.put("/update:id", authMiddleware, async (req, res) => {
+router.put("/update/:id", authMiddleware, async (req, res) => {
 
     const { title, description, completed } = req.body;
     const todoId = req.params.id;
