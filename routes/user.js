@@ -5,15 +5,15 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../db/index")
 const { signupSchema } = require("../types");
 
-router.post(("/signup"), async (req, res) => {
+router.post("/signup", async (req, res) => {
 
     const userInputs = signupSchema.safeParse(req.body);
 
     if (userInputs.success) {
         const { username, password } = req.body;
 
-        const userExist = await User.findOne({username:username})
-       
+        const userExist = await User.findOne({ username: username })
+
         if (userExist) {
             return res.json({ msg: "User already exist!" });
         }
@@ -25,8 +25,16 @@ router.post(("/signup"), async (req, res) => {
         })
 
         if (newUser) {
+            const jwtToken = jwt.sign(
+                { userId: newUser._id, username: username },
+                process.env.JWT_SECRET,
+                { expiresIn: '7d' }
+            );
+
+
             res.status(200).json({
-                msg: "User SignUp Successful!"
+                msg: "User SignUp Successful!",
+                token: jwtToken,
             })
         }
         else {
