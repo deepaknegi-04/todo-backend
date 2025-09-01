@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { User } = require("../db/index")
 const { signupSchema } = require("../types");
+const authMiddleware = require("../middleware/authMiddleware");
+const { tuple } = require('zod');
 
 router.post("/signup", async (req, res) => {
 
@@ -89,6 +91,10 @@ router.post("/signin", async (req, res) => {
         res.status(500).json({ msg: "Server error during signIn", error: err.message });
     }
 });
+
+router.get("/me", authMiddleware, (req, res) => {
+    res.json({ valid: true, user: req.user });
+})
 
 
 module.exports = router
